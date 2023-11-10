@@ -155,6 +155,9 @@ def __sgtk_on_save_callback():
         # now restart the engine with the new context
         __engine_refresh(new_ctx)
 
+        # Set OVFX WriteTank Hotkey
+        setHotkeys()
+
     except Exception:
         logger.exception("An exception was raised during addOnScriptSave callback.")
         __create_tank_error_menu()
@@ -229,6 +232,11 @@ def sgtk_on_load_callback():
             # Now switch to the context appropriate for the file
             __engine_refresh(new_ctx)
 
+
+        # Set OVFX WriteTank Hotkey
+        setHotkeys()
+
+
     except Exception:
         logger.exception("An exception was raised during addOnScriptLoad callback.")
         __create_tank_error_menu()
@@ -260,3 +268,21 @@ def tank_ensure_callbacks_registered(engine=None):
             nuke.removeOnScriptLoad(sgtk_on_load_callback)
             nuke.removeOnScriptSave(__sgtk_on_save_callback)
             g_tank_callbacks_registered = False
+
+
+#####################################################################################
+# OcclusionVFX Utilities
+def setHotkeys():
+    import sys
+    import os
+    hPath = os.path.join(
+        '\\'.join(os.path.realpath(__file__).split('\\')[:4]),
+        'config',
+        'hooks',
+    )
+    sys.path.insert(0, hPath)
+    import OccludeScripts
+
+    # adding hotkey to selected Shotgun Write Node
+    OccludeScripts.override_nuke_shortcuts()
+    
