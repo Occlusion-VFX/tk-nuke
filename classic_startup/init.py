@@ -21,7 +21,7 @@ if not os.environ.get("SHOTGUN_INIT_RUN"):
     os.environ["SHOTGUN_INIT_RUN"] = "1"
 
     ### Importing Occlusion VFX Tools
-    nuke.pluginAddPath("G:\\Shoared Drives\\Workspace\\Nuke_Tools\\Python")
+    nuke.pluginAddPath("G:\\Shared Drives\\Workspace\\Nuke_Tools\\Python")
 
     if not nuke.GUI:
         startup_path = os.path.dirname(__file__)
